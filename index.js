@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const recipesRoutes = require('./routes/recipesRoutes');
 const ingredientsRoutes = require('./routes/ingredientsRoutes');
+const swagger = require('./swagger'); // Importar Swagger
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,9 @@ mongoose.connect(process.env.MONGODB_URL)
 app.use('/recipes', recipesRoutes);
 app.use('/ingredients', ingredientsRoutes);
 
+// Configurar Swagger
+swagger(app);
+
 app.get('/', (req, res) => {
   res.send('Welcome to the Recipe Management API!');
 });
@@ -22,4 +26,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
