@@ -8,13 +8,13 @@ const app = express();
 app.use(express.json()); // Middleware para analizar cuerpos JSON
 
 // Conectar a MongoDB
-mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URL, { useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected successfully'))
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Rutas
-app.use('/api/recipes', recipesRoutes);
-app.use('/api/ingredients', ingredientsRoutes);
+app.use('/recipes', recipesRoutes);
+app.use('/ingredients', ingredientsRoutes);
 
 // Ruta básica para la raíz
 app.get('/', (req, res) => {
@@ -25,6 +25,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
-  

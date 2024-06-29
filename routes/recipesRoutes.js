@@ -7,4 +7,3 @@ router.get('/:id', recipesController.getRecipeById);
 router.post('/', recipesController.createRecipe);
 
 module.exports = router;
-
