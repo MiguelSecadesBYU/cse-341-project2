@@ -11,7 +11,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: 'https://your-domain.com',  // Replace with your domain on render.com
       },
     ],
   },
