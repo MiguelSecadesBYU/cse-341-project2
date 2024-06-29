@@ -27,15 +27,18 @@ This is a Node.js REST API for managing recipes and ingredients. It allows users
    npm install
    
 4. Create a .env file in the root directory and add your MongoDB URL::
-  PORT=3000
-  MONGODB_URL=your_mongodb_connection_string
+   ```bash
+   PORT=3000
+   MONGODB_URL=your_mongodb_connection_string
 
 ## Running the API
 To start the server in development mode with nodemon:
-  npm run dev
+   ```bash
+   npm run dev
 
 To start the server in production mode:
-  npm start
+   ```bash
+   npm start
 The server will be running on http://localhost:3000.
 
 ## API Endpoints
