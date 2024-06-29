@@ -65,4 +65,52 @@ router.get('/:id', recipesController.getRecipeById);
  */
 router.post('/', recipesController.createRecipe);
 
+/**
+ * @swagger
+ * /recipes/{id}:
+ *   put:
+ *     summary: Update a recipe
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Recipe'
+ *     responses:
+ *       200:
+ *         description: The updated recipe
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Recipe'
+ *       404:
+ *         description: Recipe not found
+ */
+router.put('/:id', recipesController.updateRecipe);
+
+/**
+ * @swagger
+ * /recipes/{id}:
+ *   delete:
+ *     summary: Delete a recipe
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Recipe deleted
+ *       404:
+ *         description: Recipe not found
+ */
+router.delete('/:id', recipesController.deleteRecipe);
+
 module.exports = router;

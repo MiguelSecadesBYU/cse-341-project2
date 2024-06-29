@@ -18,6 +18,23 @@ Content-Type: application/json
     "servings": 4
 }
 
+### Update recipe
+PUT http://localhost:3000/recipes/6680430501f5e83ac366a498 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Updated Simple Fabada",
+    "ingredients": ["6680430401f5e83ac366a48f", "6680430401f5e83ac366a490"],
+    "instructions": "Updated instructions for the meal.",
+    "preparationTime": 20,
+    "cookingTime": 90,
+    "difficulty": "Easy",
+    "servings": 2
+}
+
+### Delete recipe
+DELETE http://localhost:3000/recipes/6680430501f5e83ac366a498 HTTP/1.1
+
 
 ### Get all ingredients
 GET http://localhost:3000/ingredients
@@ -34,4 +51,14 @@ Content-Type: application/json
     "amount": "2 teaspoons"
 }
 
+### Update ingredient
+PUT http://localhost:3000/ingredients/6680430401f5e83ac366a494 HTTP/1.1
+Content-Type: application/json
 
+{
+    "name": "Updated Paprika",
+    "amount": "3 teaspoons"
+}
+
+### Delete ingredient
+DELETE http://localhost:3000/ingredients/6680430401f5e83ac366a494 HTTP/1.1

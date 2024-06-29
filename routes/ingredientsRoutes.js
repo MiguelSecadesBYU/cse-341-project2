@@ -65,4 +65,52 @@ router.get('/:id', ingredientsController.getIngredientById);
  */
 router.post('/', ingredientsController.createIngredient);
 
+/**
+ * @swagger
+ * /ingredients/{id}:
+ *   put:
+ *     summary: Update an ingredient
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Ingredient'
+ *     responses:
+ *       200:
+ *         description: The updated ingredient
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Ingredient'
+ *       404:
+ *         description: Ingredient not found
+ */
+router.put('/:id', ingredientsController.updateIngredient);
+
+/**
+ * @swagger
+ * /ingredients/{id}:
+ *   delete:
+ *     summary: Delete an ingredient
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Ingredient deleted
+ *       404:
+ *         description: Ingredient not found
+ */
+router.delete('/:id', ingredientsController.deleteIngredient);
+
 module.exports = router;
