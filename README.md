@@ -39,6 +39,7 @@ To start the server in development mode with nodemon:
 To start the server in production mode:
    ```bash
    npm start
+
 The server will be running on http://localhost:3000.
 
 ## API Endpoints
