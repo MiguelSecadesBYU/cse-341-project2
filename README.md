@@ -22,10 +22,11 @@ This is a Node.js REST API for managing recipes and ingredients. It allows users
    git clone https://github.com/MiguelSecadesBYU/cse-341-project2.git
 
 2. Install dependencies:
+   ```bash
    cd cse-341-project2
    npm install
    
-3. Create a .env file in the root directory and add your MongoDB URL::
+4. Create a .env file in the root directory and add your MongoDB URL::
   PORT=3000
   MONGODB_URL=your_mongodb_connection_string
 
