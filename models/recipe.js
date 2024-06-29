@@ -8,7 +8,7 @@ const recipeSchema = new mongoose.Schema({
   cookingTime: { type: Number, required: true },
   difficulty: { type: String, required: true },
   servings: { type: Number, required: true }
-});
+}, { collection: 'Recipes' }); 
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
