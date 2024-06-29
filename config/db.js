@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbURI = process.env.MONGODB_URI;
+const dbURI = process.env.MONGODB_URL;
 
 const options = {
   useNewUrlParser: true,
