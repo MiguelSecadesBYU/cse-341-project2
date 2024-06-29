@@ -11,7 +11,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'https://your-domain.com',  // Replace with your domain on render.com
+        url: 'https://cse-341-project2-rq9t.onrender.com',  
       },
     ],
   },

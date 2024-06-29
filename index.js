@@ -1,13 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');  // Import the CORS package
+const cors = require('cors');
 require('dotenv').config();
 const recipesRoutes = require('./routes/recipesRoutes');
 const ingredientsRoutes = require('./routes/ingredientsRoutes');
 const swagger = require('./swagger');
 
 const app = express();
-app.use(cors());  // Use the CORS middleware
+app.use(cors({
+  origin: 'https://cse-341-project2-rq9t.onrender.com', 
+  optionsSuccessStatus: 200
+}));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URL)
