@@ -1,4 +1,5 @@
 const express = require('express');
+const { body, param } = require('express-validator');
 const ingredientsController = require('../controllers/ingredientsController');
 const router = express.Router();
 
@@ -40,7 +41,10 @@ router.get('/', ingredientsController.getAllIngredients);
  *       404:
  *         description: Ingredient not found
  */
-router.get('/:id', ingredientsController.getIngredientById);
+router.get('/:id', 
+  param('id').isMongoId().withMessage('Invalid ingredient ID'),
+  ingredientsController.getIngredientById
+);
 
 /**
  * @swagger
@@ -63,7 +67,11 @@ router.get('/:id', ingredientsController.getIngredientById);
  *       400:
  *         description: Invalid input
  */
-router.post('/', ingredientsController.createIngredient);
+router.post('/', 
+  body('name').isString().notEmpty().withMessage('Name is required'),
+  body('amount').isString().notEmpty().withMessage('Amount is required'),
+  ingredientsController.createIngredient
+);
 
 /**
  * @swagger
@@ -92,7 +100,12 @@ router.post('/', ingredientsController.createIngredient);
  *       404:
  *         description: Ingredient not found
  */
-router.put('/:id', ingredientsController.updateIngredient);
+router.put('/:id', 
+  param('id').isMongoId().withMessage('Invalid ingredient ID'),
+  body('name').isString().notEmpty().withMessage('Name is required'),
+  body('amount').isString().notEmpty().withMessage('Amount is required'),
+  ingredientsController.updateIngredient
+);
 
 /**
  * @swagger
@@ -111,6 +124,9 @@ router.put('/:id', ingredientsController.updateIngredient);
  *       404:
  *         description: Ingredient not found
  */
-router.delete('/:id', ingredientsController.deleteIngredient);
+router.delete('/:id', 
+  param('id').isMongoId().withMessage('Invalid ingredient ID'),
+  ingredientsController.deleteIngredient
+);
 
 module.exports = router;

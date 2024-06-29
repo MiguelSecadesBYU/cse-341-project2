@@ -1,4 +1,5 @@
 const express = require('express');
+const { body, param } = require('express-validator');
 const recipesController = require('../controllers/recipesController');
 const router = express.Router();
 
@@ -40,7 +41,10 @@ router.get('/', recipesController.getAllRecipes);
  *       404:
  *         description: Recipe not found
  */
-router.get('/:id', recipesController.getRecipeById);
+router.get('/:id', 
+  param('id').isMongoId().withMessage('Invalid recipe ID'),
+  recipesController.getRecipeById
+);
 
 /**
  * @swagger
@@ -63,7 +67,16 @@ router.get('/:id', recipesController.getRecipeById);
  *       400:
  *         description: Invalid input
  */
-router.post('/', recipesController.createRecipe);
+router.post('/', 
+  body('name').isString().notEmpty().withMessage('Name is required'),
+  body('ingredients').isArray({ min: 1 }).withMessage('Ingredients should be an array with at least one element'),
+  body('instructions').isString().notEmpty().withMessage('Instructions are required'),
+  body('preparationTime').isInt({ min: 0 }).withMessage('Preparation time must be a non-negative integer'),
+  body('cookingTime').isInt({ min: 0 }).withMessage('Cooking time must be a non-negative integer'),
+  body('difficulty').isString().notEmpty().withMessage('Difficulty is required'),
+  body('servings').isInt({ min: 1 }).withMessage('Servings must be at least 1'),
+  recipesController.createRecipe
+);
 
 /**
  * @swagger
@@ -92,7 +105,17 @@ router.post('/', recipesController.createRecipe);
  *       404:
  *         description: Recipe not found
  */
-router.put('/:id', recipesController.updateRecipe);
+router.put('/:id', 
+  param('id').isMongoId().withMessage('Invalid recipe ID'),
+  body('name').isString().notEmpty().withMessage('Name is required'),
+  body('ingredients').isArray({ min: 1 }).withMessage('Ingredients should be an array with at least one element'),
+  body('instructions').isString().notEmpty().withMessage('Instructions are required'),
+  body('preparationTime').isInt({ min: 0 }).withMessage('Preparation time must be a non-negative integer'),
+  body('cookingTime').isInt({ min: 0 }).withMessage('Cooking time must be a non-negative integer'),
+  body('difficulty').isString().notEmpty().withMessage('Difficulty is required'),
+  body('servings').isInt({ min: 1 }).withMessage('Servings must be at least 1'),
+  recipesController.updateRecipe
+);
 
 /**
  * @swagger
@@ -111,6 +134,9 @@ router.put('/:id', recipesController.updateRecipe);
  *       404:
  *         description: Recipe not found
  */
-router.delete('/:id', recipesController.deleteRecipe);
+router.delete('/:id', 
+  param('id').isMongoId().withMessage('Invalid recipe ID'),
+  recipesController.deleteRecipe
+);
 
 module.exports = router;

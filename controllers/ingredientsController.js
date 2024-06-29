@@ -1,15 +1,21 @@
+const { validationResult } = require('express-validator');
 const Ingredient = require('../models/ingredient');
 
-exports.getAllIngredients = async (req, res) => {
+exports.getAllIngredients = async (req, res, next) => {
   try {
     const ingredients = await Ingredient.find();
     res.status(200).json(ingredients);
   } catch (error) {
-    res.status(500).send(error);
+    next(error);
   }
 };
 
-exports.getIngredientById = async (req, res) => {
+exports.getIngredientById = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const ingredient = await Ingredient.findById(req.params.id);
     if (!ingredient) {
@@ -17,21 +23,31 @@ exports.getIngredientById = async (req, res) => {
     }
     res.status(200).json(ingredient);
   } catch (error) {
-    res.status(500).send(error);
+    next(error);
   }
 };
 
-exports.createIngredient = async (req, res) => {
+exports.createIngredient = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const newIngredient = new Ingredient(req.body);
     await newIngredient.save();
     res.status(201).json(newIngredient);
   } catch (error) {
-    res.status(400).send(error);
+    next(error);
   }
 };
 
-exports.updateIngredient = async (req, res) => {
+exports.updateIngredient = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const ingredient = await Ingredient.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!ingredient) {
@@ -39,11 +55,16 @@ exports.updateIngredient = async (req, res) => {
     }
     res.status(200).json(ingredient);
   } catch (error) {
-    res.status(400).send(error);
+    next(error);
   }
 };
 
-exports.deleteIngredient = async (req, res) => {
+exports.deleteIngredient = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const ingredient = await Ingredient.findByIdAndDelete(req.params.id);
     if (!ingredient) {
@@ -51,6 +72,6 @@ exports.deleteIngredient = async (req, res) => {
     }
     res.status(200).json({ message: 'Ingredient deleted' });
   } catch (error) {
-    res.status(500).send(error);
+    next(error);
   }
 };
