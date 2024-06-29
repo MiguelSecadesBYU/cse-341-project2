@@ -5,6 +5,7 @@ exports.getAllIngredients = async (req, res) => {
     const ingredients = await Ingredient.find();
     res.status(200).json(ingredients);
   } catch (error) {
+    console.error("Error fetching ingredients:", error); // Log del error
     res.status(500).send(error);
   }
 };
@@ -17,6 +18,7 @@ exports.getIngredientById = async (req, res) => {
     }
     res.status(200).json(ingredient);
   } catch (error) {
+    console.error("Error fetching ingredient by ID:", error); // Log del error
     res.status(500).send(error);
   }
 };
@@ -27,6 +29,7 @@ exports.createIngredient = async (req, res) => {
     await newIngredient.save();
     res.status(201).json(newIngredient);
   } catch (error) {
+    console.error("Error creating ingredient:", error); // Log del error
     res.status(400).send(error);
   }
 };
