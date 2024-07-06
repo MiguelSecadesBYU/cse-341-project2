@@ -17,7 +17,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected successfully'))
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -73,9 +73,11 @@ app.get('/auth/github/callback',
  *       302:
  *         description: Redirects to the home page
  */
-app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
+app.get('/logout', (req, res, next) => {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
 });
 
 function isLoggedIn(req, res, next) {
